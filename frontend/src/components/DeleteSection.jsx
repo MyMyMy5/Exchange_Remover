@@ -354,7 +354,7 @@ const DeleteSection = () => {
     }
 
     const getClass = (line) => {
-      const highlightPattern = /(target mailboxes|affected mailboxes|Effected Emails|Verification complete)/i;
+      const highlightPattern = /(target mailboxes|affected mailboxes|Effected Emails|Deleted|Verification complete)/i;
       const levelMatch = line.match(/\[(INFO|WARNING|ERROR|SUCCESS)\]/i);
       const level = levelMatch ? levelMatch[1].toUpperCase() : "INFO";
 

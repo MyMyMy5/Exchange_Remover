@@ -4,9 +4,9 @@ End-to-end tooling to search and purge malicious messages across every Exchange 
 
 ## Repository structure
 
-- `backend/` — Node.js service exposing search and delete endpoints backed by EWS.
-- `frontend/` — React/Vite UI for analysts to run searches and deletions.
-- `AGENTS.md` — Specification provided by the project owner.
+- `backend/` - Node.js service exposing search and delete endpoints backed by EWS.
+- `frontend/` - React/Vite UI for analysts to run searches and deletions.
+- `AGENTS.md` - Specification provided by the project owner.
 
 ## Prerequisites
 
@@ -20,9 +20,8 @@ End-to-end tooling to search and purge malicious messages across every Exchange 
 1. Copy `.env.example` to `.env` and set the fields:
    - `EWS_URL` or `EWS_AUTODISCOVER_EMAIL` (one is required).
    - `EWS_USERNAME` / `EWS_PASSWORD` (service account credentials).
-   - `EWS_DOMAIN` if you are using domain\backslash style auth instead of UPN.
+   - `EWS_DOMAIN` if you are using `domain\username` style auth instead of UPN.
    - `ALLOWED_ORIGINS` to the URL where the frontend will be served.
-
 2. Install dependencies and start the server:
 
    ```powershell
@@ -32,20 +31,19 @@ End-to-end tooling to search and purge malicious messages across every Exchange 
    ```
 
 3. The API serves three routes under `/api`:
-   - `GET /api/mailboxes` — discovery helper (returns primary SMTP and display name for searchable mailboxes).
-   - `POST /api/search` — accepts filters and returns matching messages per mailbox.
-   - `POST /api/delete` — accepts filters plus `deleteMode`/`simulate` flags to dry-run or execute deletions.
+   - `GET /api/mailboxes` - discovery helper (returns primary SMTP and display name for searchable mailboxes).
+   - `POST /api/search` - accepts filters and returns matching messages per mailbox.
+   - `POST /api/delete` - accepts filters plus `deleteMode` / `simulate` flags to dry-run or execute deletions.
 
-> **Note:** The service relies on EWS impersonation to iterate every mailbox. Ensure the service account has `ApplicationImpersonation` (or equivalent) rights. For CU22+ servers this typically means running something like:
->
-> ```powershell
-> New-ManagementRoleAssignment -Name "UI-Impersonation" -Role ApplicationImpersonation -User administrator
-> ```
+   > **Note:** The service relies on EWS impersonation to iterate every mailbox. Ensure the service account has `ApplicationImpersonation` (or equivalent) rights. For CU22+ servers this typically means running something like:
+   >
+   > ```powershell
+   > New-ManagementRoleAssignment -Name "UI-Impersonation" -Role ApplicationImpersonation -User administrator
+   > ```
 
 ## Frontend setup (`frontend/`)
 
 1. Copy `.env.example` to `.env` and set `VITE_API_BASE_URL` to the backend URL (for local dev: `http://localhost:5000/api`).
-
 2. Install dependencies and start Vite:
 
    ```powershell
@@ -58,8 +56,8 @@ End-to-end tooling to search and purge malicious messages across every Exchange 
 
 The UI exposes two panels:
 
-- **Search Messages** — run targeted searches (sender, subject, date range, folder filters, etc.) and inspect per-mailbox results before taking action.
-- **Delete Messages** — perform organisation-wide simulations or live deletions. The simulation flag is on by default; disable it once you are confident in the filters.
+- **Search Messages** - run targeted searches (sender, subject, date range, folder filters, etc.) and inspect per-mailbox results before taking action.
+- **Delete Messages** - perform organisation-wide simulations or live deletions. The simulation flag is on by default; disable it once you are confident in the filters.
 
 ## Operational guidance
 
@@ -81,6 +79,6 @@ There are no automated tests bundled because the implementation depends on a liv
 
 ## Documentation
 
-- [WORKFLOW.md](WORKFLOW.md) — Complete system workflow and architecture documentation
-- [PACKAGES.md](PACKAGES.md) — Node.js packages summary and dependencies
-- [SECURITY_VULNERABILITIES.md](SECURITY_VULNERABILITIES.md) — Security assessment and recommendations
+- [WORKFLOW.md](WORKFLOW.md) - Complete system workflow and architecture documentation.
+- [PACKAGES.md](PACKAGES.md) - Node.js packages summary and dependencies.
+- [SECURITY_VULNERABILITIES.md](SECURITY_VULNERABILITIES.md) - Security assessment and recommendations.
